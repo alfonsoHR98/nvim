@@ -75,3 +75,14 @@ keymap("v", "<leader>co", ":CopilotChatOptimize<CR>", { desc = "Optimize selecte
 keymap("v", "<leader>cd", ":CopilotChatDocs<CR>", { desc = "Add docs to selected code" })
 keymap("v", "<leader>cts", ":CopilotChatTests<CR>", { desc = "Generate tests for selected code" })
 keymap("n", "<leader>cm", ":CopilotChatCommit<CR>", { desc = "Generate commit message" })
+
+-- Keymaps para mejorar navegación en línea de comandos
+keymap("c", "<C-j>", "<Down>", { desc = "Next command in history" })
+keymap("c", "<C-k>", "<Up>", { desc = "Previous command in history" })
+keymap("c", "<C-h>", "<Left>", { desc = "Move left in cmdline" })
+keymap("c", "<C-l>", "<Right>", { desc = "Move right in cmdline" })
+keymap("c", "<C-a>", "<Home>", { desc = "Go to beginning of line" })
+keymap("c", "<C-e>", "<End>", { desc = "Go to end of line" })
+keymap("c", "<C-d>", "<Del>", { desc = "Delete character" })
+keymap("c", "<C-b>", "<S-Left>", { desc = "Move word left" })
+keymap("c", "<C-f>", "<S-Right>", { desc = "Move word right" })

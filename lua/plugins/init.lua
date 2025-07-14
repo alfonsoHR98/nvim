@@ -735,6 +735,59 @@ require("lazy").setup({
     end,
   },
 
+  -- Mejorar autocompletado en línea de comandos
+  {
+    "gelguy/wilder.nvim",
+    build = ":UpdateRemotePlugins",
+    event = "CmdlineEnter",
+    config = function()
+      local wilder = require('wilder')
+      
+      -- Configurar wilder
+      wilder.setup({
+        modes = {':', '/', '?'}  -- Habilitar para comandos, búsqueda hacia adelante y atrás
+      })
+
+      -- Configurar el pipeline para comandos
+      wilder.set_option('pipeline', {
+        wilder.branch(
+          wilder.cmdline_pipeline({
+            fuzzy = 1,  -- Habilitar búsqueda difusa
+            fuzzy_filter = wilder.lua_fzy_filter(),  -- Usar filtro lua fzy
+          }),
+          wilder.vim_search_pipeline(),  -- Para búsquedas
+          {
+            wilder.check(function(ctx, x) return x == '' end),
+            wilder.history(),
+          }
+        ),
+      })
+
+      -- Configurar el renderizador (interfaz visual)
+      wilder.set_option('renderer', wilder.renderer_mux({
+        [':'] = wilder.popupmenu_renderer(
+          wilder.popupmenu_border_theme({
+            highlights = {
+              border = 'Normal',
+              accent = wilder.make_hl('WilderAccent', 'Pmenu', {{a = 1}, {a = 1}, {foreground = '#f4468f'}}),
+            },
+            border = 'rounded',
+            max_height = '50%',
+            min_height = 0,
+            prompt_position = 'top',
+            reverse = 0,
+          })
+        ),
+        ['/'] = wilder.wildmenu_renderer({
+          highlighter = wilder.basic_highlighter(),
+        }),
+        ['?'] = wilder.wildmenu_renderer({
+          highlighter = wilder.basic_highlighter(),
+        }),
+      }))
+    end,
+  },
+
   -- Puedes importar configuraciones desde otros archivos
   { import = "plugins.lsp" },         -- lua/plugins/lsp.lua
   { import = "plugins.treesitter" },  -- lua/plugins/treesitter.lua
