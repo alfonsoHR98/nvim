@@ -106,7 +106,6 @@ NVIM_APPNAME=alfonsoHR98/nvim/ nvim
 - **[nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)** - Configuraciones para Language Server Protocol
 - **[mason.nvim](https://github.com/williamboman/mason.nvim)** - Instalador de LSP servers, DAPs, linters
 - **[nvim-cmp](https://github.com/hrsh7th/nvim-cmp)** - Motor de autocompletado
-- **[cmp-cmdline](https://github.com/hrsh7th/cmp-cmdline)** - Autocompletado para línea de comandos
 - **[wilder.nvim](https://github.com/gelguy/wilder.nvim)** - Mejora visual del autocompletado de comandos
 - **[LuaSnip](https://github.com/L3MON4D3/LuaSnip)** - Motor de snippets
 
@@ -299,17 +298,20 @@ NVIM_APPNAME=alfonsoHR98/nvim/ nvim
 
 ### 📝 Línea de Comandos (Command Line)
 
-| Keymap  | Acción            | Descripción                          |
-| ------- | ----------------- | ------------------------------------ |
-| `<C-j>` | Comando siguiente | Navegar en historial hacia adelante  |
-| `<C-k>` | Comando anterior  | Navegar en historial hacia atrás     |
-| `<C-h>` | Mover izquierda   | Mover cursor hacia la izquierda      |
-| `<C-l>` | Mover derecha     | Mover cursor hacia la derecha        |
-| `<C-a>` | Inicio de línea   | Ir al comienzo de la línea           |
-| `<C-e>` | Final de línea    | Ir al final de la línea              |
-| `<C-d>` | Borrar carácter   | Eliminar carácter bajo el cursor     |
-| `<C-b>` | Palabra izquierda | Mover una palabra hacia la izquierda |
-| `<C-f>` | Palabra derecha   | Mover una palabra hacia la derecha   |
+| Keymap    | Acción                  | Descripción                              |
+| --------- | ----------------------- | ---------------------------------------- |
+| `<Tab>`   | Siguiente sugerencia    | Navegar hacia adelante en autocompletado |
+| `<S-Tab>` | Sugerencia anterior     | Navegar hacia atrás en autocompletado    |
+| `<Down>`  | Aceptar sugerencia      | Confirmar la opción seleccionada         |
+| `<Up>`    | Rechazar autocompletado | Cancelar el menú de autocompletado       |
+| `<C-k>`   | Comando anterior        | Navegar en historial hacia atrás         |
+| `<C-h>`   | Mover izquierda         | Mover cursor hacia la izquierda          |
+| `<C-l>`   | Mover derecha           | Mover cursor hacia la derecha            |
+| `<C-a>`   | Inicio de línea         | Ir al comienzo de la línea               |
+| `<C-e>`   | Final de línea          | Ir al final de la línea                  |
+| `<C-d>`   | Borrar carácter         | Eliminar carácter bajo el cursor         |
+| `<C-b>`   | Palabra izquierda       | Mover una palabra hacia la izquierda     |
+| `<C-f>`   | Palabra derecha         | Mover una palabra hacia la derecha       |
 
 > **Nota**: Los comandos `:`, `/` y `?` tienen autocompletado mejorado con `wilder.nvim` y `cmp-cmdline`
 

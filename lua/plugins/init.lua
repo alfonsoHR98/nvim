@@ -736,48 +736,42 @@ require("lazy").setup({
   },
 
   -- Mejorar autocompletado en línea de comandos
+  -- TEMPORALMENTE DESHABILITADO: Si hay problemas, descomenta el bloque de abajo
   {
     "gelguy/wilder.nvim",
+    enabled = true, -- Cambiar a false si hay problemas
     build = ":UpdateRemotePlugins",
     event = "CmdlineEnter",
     config = function()
       local wilder = require('wilder')
       
-      -- Configurar wilder
+      -- Configurar wilder con configuración más simple y estable
       wilder.setup({
-        modes = {':', '/', '?'}  -- Habilitar para comandos, búsqueda hacia adelante y atrás
+        modes = {':', '/', '?'},  -- Habilitar para comandos, búsqueda hacia adelante y atrás
+        next_key = '<Tab>',
+        previous_key = '<S-Tab>',
+        accept_key = '<Down>',
+        reject_key = '<Up>',
       })
 
-      -- Configurar el pipeline para comandos
+      -- Configurar el pipeline sin filtros nativos problemáticos
       wilder.set_option('pipeline', {
         wilder.branch(
           wilder.cmdline_pipeline({
-            fuzzy = 1,  -- Habilitar búsqueda difusa
-            fuzzy_filter = wilder.lua_fzy_filter(),  -- Usar filtro lua fzy
+            -- Usar filtro simple en lugar del nativo que está fallando
+            fuzzy = 1,
           }),
-          wilder.vim_search_pipeline(),  -- Para búsquedas
-          {
-            wilder.check(function(ctx, x) return x == '' end),
-            wilder.history(),
-          }
-        ),
+          wilder.vim_search_pipeline()
+        )
       })
 
-      -- Configurar el renderizador (interfaz visual)
+      -- Configurar el renderizador
       wilder.set_option('renderer', wilder.renderer_mux({
-        [':'] = wilder.popupmenu_renderer(
-          wilder.popupmenu_border_theme({
-            highlights = {
-              border = 'Normal',
-              accent = wilder.make_hl('WilderAccent', 'Pmenu', {{a = 1}, {a = 1}, {foreground = '#f4468f'}}),
-            },
-            border = 'rounded',
-            max_height = '50%',
-            min_height = 0,
-            prompt_position = 'top',
-            reverse = 0,
-          })
-        ),
+        [':'] = wilder.popupmenu_renderer({
+          highlighter = wilder.basic_highlighter(),
+          left = {' ', wilder.popupmenu_devicons()},
+          right = {' ', wilder.popupmenu_scrollbar()},
+        }),
         ['/'] = wilder.wildmenu_renderer({
           highlighter = wilder.basic_highlighter(),
         }),
