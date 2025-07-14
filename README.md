@@ -85,6 +85,12 @@ NVIM_APPNAME=alfonsoHR98/nvim/ nvim
 - **[vim-rhubarb](https://github.com/tpope/vim-rhubarb)** - Integración con GitHub para vim-fugitive
 - **[telescope-fzf-native.nvim](https://github.com/nvim-telescope/telescope-fzf-native.nvim)** - Mejorar performance de Telescope
 
+### Gestión de Archivos
+
+- **[oil.nvim](https://github.com/stevearc/oil.nvim)** - Editor de directorios como si fuera un buffer
+- **[nvim-genghis](https://github.com/chrisgrieser/nvim-genghis)** - Operaciones avanzadas de archivos
+- **[dressing.nvim](https://github.com/stevearc/dressing.nvim)** - Mejores interfaces para inputs y selecciones
+
 ### LSP y Autocompletado
 
 - **[nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)** - Configuraciones para Language Server Protocol
@@ -112,6 +118,21 @@ NVIM_APPNAME=alfonsoHR98/nvim/ nvim
 | `<leader>e`  | Abrir/cerrar explorador | `NvimTreeToggle` |
 | `<leader>pv` | Explorador nativo       | `vim.cmd.Ex`     |
 | `<leader>a`  | Abrir Dashboard         | `Alpha`          |
+
+### 📂 Gestión de Archivos
+
+| Keymap       | Acción                  | Descripción                   |
+| ------------ | ----------------------- | ----------------------------- |
+| `<leader>o`  | Abrir Oil               | Editor de directorios         |
+| `<leader>O`  | Oil flotante            | Oil en ventana flotante       |
+| `<leader>fc` | Crear archivo           | Crear nuevo archivo           |
+| `<leader>fr` | Renombrar archivo       | Renombrar archivo actual      |
+| `<leader>fm` | Mover/renombrar archivo | Mover y renombrar archivo     |
+| `<leader>fd` | Duplicar archivo        | Duplicar archivo actual       |
+| `<leader>fD` | Eliminar archivo        | Eliminar archivo (papelera)   |
+| `<leader>fp` | Copiar ruta             | Copiar ruta completa          |
+| `<leader>fn` | Copiar nombre           | Copiar nombre del archivo     |
+| `<leader>fx` | Hacer ejecutable        | Cambiar permisos a ejecutable |
 
 ### 🔍 Telescope (Búsqueda)
 
@@ -348,6 +369,100 @@ Puedes modificar el dashboard editando `/lua/config/alpha.lua`:
 - Personalizar los botones y acciones
 - Modificar los colores y el footer
 - Agregar información adicional
+
+## 📁 Creación de Archivos y Gestión de Proyectos
+
+### 🚀 Formas de crear archivos:
+
+#### 1. **Con Oil.nvim (Recomendado)**
+
+```
+<leader>o  →  Abre Oil (editor de directorios)
+```
+
+- Navega como si editaras un buffer normal
+- Usa `o` para crear archivos/carpetas
+- Edita los nombres directamente en el buffer
+- Guarda con `:w` para aplicar cambios
+
+#### 2. **Con NvimTree**
+
+```
+<leader>e  →  Abre NvimTree
+```
+
+- Navega a la carpeta deseada
+- Presiona `a` para crear archivo/carpeta
+- Escribe el nombre (ej: `services/userService.js`)
+
+#### 3. **Con Genghis (Operaciones avanzadas)**
+
+```
+<leader>fc  →  Crear nuevo archivo
+<leader>fd  →  Duplicar archivo actual
+<leader>fm  →  Mover/renombrar archivo
+```
+
+#### 4. **Con comandos vim directos**
+
+```vim
+:e src/services/userService.js
+:edit components/UserCard.tsx
+```
+
+#### 5. **Con Telescope**
+
+```
+<leader>ff  →  Buscar archivos
+```
+
+- Escribe la ruta completa del archivo
+- Si no existe, se creará automáticamente
+
+### 🎯 Ejemplos prácticos para proyectos:
+
+#### **Crear un servicio:**
+
+```
+<leader>fc  →  src/services/userService.js
+<leader>fc  →  src/services/authService.ts
+```
+
+#### **Crear un componente:**
+
+```
+<leader>fc  →  src/components/UserCard.tsx
+<leader>fc  →  src/components/Button/index.tsx
+```
+
+#### **Crear archivos de configuración:**
+
+```
+<leader>fc  →  config/database.js
+<leader>fc  →  .env.example
+```
+
+#### **Estructurar un módulo completo:**
+
+```
+<leader>o  →  Abrir Oil
+# Crear estructura:
+src/
+  modules/
+    user/
+      controller.js
+      service.js
+      model.js
+      routes.js
+```
+
+### 💡 Tips para gestión eficiente:
+
+1. **Usa Oil** (`<leader>o`) para crear múltiples archivos/carpetas rápidamente
+2. **Duplica archivos similares** con `<leader>fd` para mantener estructura
+3. **Usa plantillas** duplicando archivos existentes como base
+4. **Navega rápido** con `<leader>ff` para encontrar archivos
+5. **Organiza por características** en lugar de por tipo de archivo
 
 ## 🤝 Contribuciones
 

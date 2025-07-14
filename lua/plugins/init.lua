@@ -303,6 +303,246 @@ require("lazy").setup({
     dependencies = { "tpope/vim-fugitive" },
     cmd = { "GBrowse" },
   },
+
+  -- File management and creation
+  {
+    "stevearc/oil.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("oil").setup({
+        default_file_explorer = false, -- No reemplazar netrw por defecto
+        columns = {
+          "icon",
+          "permissions",
+          "size",
+          "mtime",
+        },
+        buf_options = {
+          buflisted = false,
+          bufhidden = "hide",
+        },
+        win_options = {
+          wrap = false,
+          signcolumn = "no",
+          cursorcolumn = false,
+          foldcolumn = "0",
+          spell = false,
+          list = false,
+          conceallevel = 3,
+          concealcursor = "nvic",
+        },
+        delete_to_trash = true,
+        skip_confirm_for_simple_edits = false,
+        prompt_save_on_select_new_entry = true,
+        cleanup_delay_ms = 2000,
+        lsp_file_operations = {
+          enabled = true,
+          autosave_changes = false,
+        },
+        constrain_cursor = "editable",
+        experimental_watch_for_changes = false,
+        keymaps = {
+          ["g?"] = "actions.show_help",
+          ["<CR>"] = "actions.select",
+          ["<C-s>"] = "actions.select_vsplit",
+          ["<C-h>"] = "actions.select_split",
+          ["<C-t>"] = "actions.select_tab",
+          ["<C-p>"] = "actions.preview",
+          ["<C-c>"] = "actions.close",
+          ["<C-l>"] = "actions.refresh",
+          ["-"] = "actions.parent",
+          ["_"] = "actions.open_cwd",
+          ["`"] = "actions.cd",
+          ["~"] = "actions.tcd",
+          ["gs"] = "actions.change_sort",
+          ["gx"] = "actions.open_external",
+          ["g."] = "actions.toggle_hidden",
+          ["g\\"] = "actions.toggle_trash",
+        },
+        use_default_keymaps = true,
+        view_options = {
+          show_hidden = false,
+          is_hidden_file = function(name, bufnr)
+            return vim.startswith(name, ".")
+          end,
+          is_always_hidden = function(name, bufnr)
+            return false
+          end,
+          sort = {
+            { "type", "asc" },
+            { "name", "asc" },
+          },
+        },
+        float = {
+          padding = 2,
+          max_width = 0,
+          max_height = 0,
+          border = "rounded",
+          win_options = {
+            winblend = 0,
+          },
+          override = function(conf)
+            return conf
+          end,
+        },
+        preview = {
+          max_width = 0.9,
+          min_width = { 40, 0.4 },
+          width = nil,
+          max_height = 0.9,
+          min_height = { 5, 0.1 },
+          height = nil,
+          border = "rounded",
+          win_options = {
+            winblend = 0,
+          },
+          update_on_cursor_moved = true,
+        },
+        progress = {
+          max_width = 0.9,
+          min_width = { 40, 0.4 },
+          width = nil,
+          max_height = { 10, 0.9 },
+          min_height = { 5, 0.1 },
+          height = nil,
+          border = "rounded",
+          minimized_border = "none",
+          win_options = {
+            winblend = 0,
+          },
+        },
+      })
+      
+      -- Keymap para abrir oil
+      vim.keymap.set("n", "<leader>o", "<CMD>Oil<CR>", { desc = "Open Oil file manager" })
+      vim.keymap.set("n", "<leader>O", "<CMD>Oil --float<CR>", { desc = "Open Oil floating window" })
+    end,
+  },
+
+  -- Advanced file operations
+  {
+    "chrisgrieser/nvim-genghis",
+    dependencies = "stevearc/dressing.nvim",
+    config = function()
+      local genghis = require("genghis")
+      
+      -- Keymaps para operaciones de archivos
+      vim.keymap.set("n", "<leader>fp", genghis.copyFilepath, { desc = "Copy file path" })
+      vim.keymap.set("n", "<leader>fn", genghis.copyFilename, { desc = "Copy filename" })
+      vim.keymap.set("n", "<leader>fx", genghis.chmodx, { desc = "Make file executable" })
+      vim.keymap.set("n", "<leader>fr", genghis.renameFile, { desc = "Rename file" })
+      vim.keymap.set("n", "<leader>fm", genghis.moveAndRenameFile, { desc = "Move/rename file" })
+      vim.keymap.set("n", "<leader>fc", genghis.createNewFile, { desc = "Create new file" })
+      vim.keymap.set("n", "<leader>fd", genghis.duplicateFile, { desc = "Duplicate file" })
+      vim.keymap.set("n", "<leader>fD", function() genghis.trashFile{trashLocation = "your_trash"} end, { desc = "Delete file to trash" })
+    end,
+  },
+
+  -- Better UI for inputs
+  {
+    "stevearc/dressing.nvim",
+    config = function()
+      require("dressing").setup({
+        input = {
+          enabled = true,
+          default_prompt = "Input:",
+          title_pos = "left",
+          insert_only = true,
+          start_in_insert = true,
+          anchor = "SW",
+          border = "rounded",
+          relative = "cursor",
+          prefer_width = 40,
+          width = nil,
+          max_width = { 140, 0.9 },
+          min_width = { 20, 0.2 },
+          buf_options = {},
+          win_options = {
+            winblend = 10,
+            wrap = false,
+          },
+          mappings = {
+            n = {
+              ["<Esc>"] = "Close",
+              ["<CR>"] = "Confirm",
+            },
+            i = {
+              ["<C-c>"] = "Close",
+              ["<CR>"] = "Confirm",
+              ["<Up>"] = "HistoryPrev",
+              ["<Down>"] = "HistoryNext",
+            },
+          },
+          override = function(conf)
+            return conf
+          end,
+          get_config = nil,
+        },
+        select = {
+          enabled = true,
+          backend = { "telescope", "fzf_lua", "fzf", "builtin", "nui" },
+          trim_prompt = true,
+          telescope = nil,
+          fzf = {
+            window = {
+              width = 0.5,
+              height = 0.4,
+            },
+          },
+          fzf_lua = {
+            winopts = {
+              height = 0.5,
+              width = 0.5,
+            },
+          },
+          nui = {
+            position = "50%",
+            size = nil,
+            relative = "editor",
+            border = {
+              style = "rounded",
+            },
+            buf_options = {
+              swapfile = false,
+              filetype = "DressingSelect",
+            },
+            win_options = {
+              winblend = 10,
+            },
+            max_width = 80,
+            max_height = 40,
+            min_width = 40,
+            min_height = 10,
+          },
+          builtin = {
+            anchor = "NW",
+            border = "rounded",
+            relative = "editor",
+            buf_options = {},
+            win_options = {
+              winblend = 10,
+            },
+            width = nil,
+            max_width = { 140, 0.8 },
+            min_width = { 40, 0.2 },
+            height = nil,
+            max_height = 0.9,
+            min_height = { 10, 0.2 },
+            mappings = {
+              ["<Esc>"] = "Close",
+              ["<C-c>"] = "Close",
+              ["<CR>"] = "Confirm",
+            },
+            override = function(conf)
+              return conf
+            end,
+          },
+          format_item_override = {},
+          get_config = nil,
+        },
+      })
+    end,
+  },
   
   -- Puedes importar configuraciones desde otros archivos
   { import = "plugins.lsp" },         -- lua/plugins/lsp.lua
