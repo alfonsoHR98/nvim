@@ -178,20 +178,25 @@ return {
     end,
   },
 
-  -- Autocompletado
+  -- Autocompletado con integración de Copilot
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
+      "hrsh7th/cmp-nvim-lsp",
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
+      "zbirenbaum/copilot-cmp", -- Integración de Copilot con cmp
     },
     config = function()
       local cmp = require("cmp")
       local luasnip = require("luasnip")
+
+      -- Configurar copilot-cmp
+      require("copilot_cmp").setup()
 
       -- Cargar snippets
       require("luasnip.loaders.from_vscode").lazy_load()
@@ -212,12 +217,32 @@ return {
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
+          -- Configuración especial para Tab con Copilot
+          ["<Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            elseif luasnip.expand_or_jumpable() then
+              luasnip.expand_or_jump()
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+          ["<S-Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+              luasnip.jump(-1)
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
           ["<CR>"] = cmp.mapping.confirm({ select = false }),
         }),
         sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-          { name = "buffer" },
+          { name = "copilot", group_index = 2 },  -- Copilot con prioridad alta
+          { name = "nvim_lsp", group_index = 2 },
+          { name = "luasnip", group_index = 2 },
+          { name = "buffer", group_index = 2 },
           { name = "path" },
         }),
       })

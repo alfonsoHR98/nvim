@@ -58,3 +58,20 @@ keymap("t", "<C-h>", "<C-\\><C-n><C-w>h", opts)
 keymap("t", "<C-j>", "<C-\\><C-n><C-w>j", opts)
 keymap("t", "<C-k>", "<C-\\><C-n><C-w>k", opts)
 keymap("t", "<C-l>", "<C-\\><C-n><C-w>l", opts)
+
+-- GitHub Copilot keymaps
+keymap("n", "<leader>cp", ":Copilot panel<CR>", { desc = "Copilot panel" })
+keymap("n", "<leader>cs", ":Copilot status<CR>", { desc = "Copilot status" })
+keymap("n", "<leader>ce", ":Copilot enable<CR>", { desc = "Copilot enable" })
+keymap("n", "<leader>cD", ":Copilot disable<CR>", { desc = "Copilot disable" })
+
+-- CopilotChat keymaps
+keymap("n", "<leader>cc", ":CopilotChat<CR>", { desc = "Open Copilot Chat" })
+keymap("n", "<leader>ct", ":CopilotChatToggle<CR>", { desc = "Toggle Copilot Chat" })
+keymap("v", "<leader>cx", ":CopilotChatExplain<CR>", { desc = "Explain selected code" })
+keymap("v", "<leader>cr", ":CopilotChatReview<CR>", { desc = "Review selected code" })
+keymap("v", "<leader>cf", ":CopilotChatFix<CR>", { desc = "Fix selected code" })
+keymap("v", "<leader>co", ":CopilotChatOptimize<CR>", { desc = "Optimize selected code" })
+keymap("v", "<leader>cd", ":CopilotChatDocs<CR>", { desc = "Add docs to selected code" })
+keymap("v", "<leader>cts", ":CopilotChatTests<CR>", { desc = "Generate tests for selected code" })
+keymap("n", "<leader>cm", ":CopilotChatCommit<CR>", { desc = "Generate commit message" })
