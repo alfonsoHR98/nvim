@@ -12,6 +12,7 @@ Una configuración moderna y modular de Neovim usando Lua con lazy.nvim como ges
 - [Estructura del Proyecto](#-estructura-del-proyecto)
 - [Plugins Incluidos](#-plugins-incluidos)
 - [Keymaps (Atajos de Teclado)](#-keymaps-atajos-de-teclado)
+- [Dashboard Personalizado](#-dashboard-personalizado)
 - [Configuraciones](#-configuraciones)
 - [Language Servers](#-language-servers)
 
@@ -77,6 +78,13 @@ NVIM_APPNAME=alfonsoHR98/nvim/ nvim
 - **[nvim-autopairs](https://github.com/windwp/nvim-autopairs)** - Cierre automático de paréntesis, llaves, etc.
 - **[Comment.nvim](https://github.com/numToStr/Comment.nvim)** - Plugin para comentar código fácilmente
 
+### Git Integration
+
+- **[gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)** - Señales Git en el gutter, navegación de hunks
+- **[vim-fugitive](https://github.com/tpope/vim-fugitive)** - Comandos Git avanzados desde Neovim
+- **[vim-rhubarb](https://github.com/tpope/vim-rhubarb)** - Integración con GitHub para vim-fugitive
+- **[telescope-fzf-native.nvim](https://github.com/nvim-telescope/telescope-fzf-native.nvim)** - Mejorar performance de Telescope
+
 ### LSP y Autocompletado
 
 - **[nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)** - Configuraciones para Language Server Protocol
@@ -113,6 +121,45 @@ NVIM_APPNAME=alfonsoHR98/nvim/ nvim
 | `<leader>fg` | Buscar texto en archivos | `Telescope live_grep`  |
 | `<leader>fb` | Buscar en buffers        | `Telescope buffers`    |
 | `<leader>fh` | Buscar en ayuda          | `Telescope help_tags`  |
+
+### 🔧 Git (Control de Versiones)
+
+#### Git con Telescope
+
+| Keymap       | Acción               | Descripción              |
+| ------------ | -------------------- | ------------------------ |
+| `<leader>gf` | Archivos Git         | `Telescope git_files`    |
+| `<leader>gc` | Historial de commits | `Telescope git_commits`  |
+| `<leader>gb` | Ramas Git            | `Telescope git_branches` |
+| `<leader>gt` | Estado Git           | `Telescope git_status`   |
+
+#### Git con Fugitive
+
+| Keymap       | Acción     | Descripción    |
+| ------------ | ---------- | -------------- |
+| `<leader>gs` | Git status | `:Git`         |
+| `<leader>gc` | Git commit | `:Git commit`  |
+| `<leader>gp` | Git push   | `:Git push`    |
+| `<leader>gl` | Git pull   | `:Git pull`    |
+| `<leader>gb` | Git blame  | `:Git blame`   |
+| `<leader>gd` | Git diff   | `:Gvdiffsplit` |
+
+#### Git Hunks (Gitsigns)
+
+| Keymap       | Acción          | Descripción                 |
+| ------------ | --------------- | --------------------------- |
+| `]c`         | Siguiente hunk  | Navegar al siguiente cambio |
+| `[c`         | Hunk anterior   | Navegar al cambio anterior  |
+| `<leader>hs` | Stage hunk      | Agregar cambio al stage     |
+| `<leader>hr` | Reset hunk      | Deshacer cambio             |
+| `<leader>hS` | Stage buffer    | Agregar archivo completo    |
+| `<leader>hu` | Undo stage hunk | Deshacer stage del hunk     |
+| `<leader>hR` | Reset buffer    | Resetear archivo completo   |
+| `<leader>hp` | Preview hunk    | Vista previa del cambio     |
+| `<leader>hb` | Blame line      | Ver quién cambió la línea   |
+| `<leader>tb` | Toggle blame    | Activar/desactivar blame    |
+| `<leader>hd` | Diff this       | Ver diferencias             |
+| `<leader>td` | Toggle deleted  | Mostrar líneas eliminadas   |
 
 ### 🪟 Navegación entre Ventanas
 
