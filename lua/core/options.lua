@@ -49,7 +49,10 @@ opt.completeopt = "menuone,noselect"
 -- Terminal y colores
 opt.termguicolors = true
 opt.timeoutlen = 300 -- Tiempo para secuencias de teclas
-opt.updatetime = 250 -- Tiempo para escribir swap file
+opt.updatetime = 100 -- Reducir para mejor respuesta (antes 250)
+opt.redrawtime = 1500 -- Tiempo máximo para redibuja
+opt.synmaxcol = 240 -- Limitar syntax highlighting en líneas largas
+opt.lazyredraw = true -- No redibujar durante macros
 
 -- Configuraciones específicas para terminales
 if vim.fn.exists('$TMUX') == 1 then

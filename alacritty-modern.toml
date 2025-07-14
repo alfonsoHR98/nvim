@@ -9,6 +9,16 @@ live_config_reload = true
 [env]
 TERM = "xterm-256color"
 
+# Configuraciones de rendimiento
+[terminal]
+osc52 = "CopyPaste"  # Mejorar copy/paste
+
+# Cursor configuration para mejor respuesta
+[cursor]
+style = "Block"
+unfocused_hollow = true
+thickness = 0.15
+
 # Window settings
 [window]
 padding.x = 12
@@ -18,8 +28,8 @@ decorations = "Buttonless"
 startup_mode = "Fullscreen"  # Opciones: "Windowed", "Maximized", "Fullscreen"
 title = "Alacritty"
 dynamic_title = true
-opacity = 0.8
-blur = true
+opacity = 1.0  # Desactivar transparencia mejora rendimiento
+blur = false   # Desactivar blur mejora rendimiento significativamente
 
 # Scrolling
 [scrolling]

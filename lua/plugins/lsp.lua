@@ -38,13 +38,21 @@ return {
       -- Capabilities para autocompletado
       local capabilities = cmp_nvim_lsp.default_capabilities()
 
-      -- Configurar diagnósticos
+      -- Configurar diagnósticos optimizados para mejor rendimiento
       vim.diagnostic.config({
-        virtual_text = true,
+        virtual_text = {
+          prefix = "●",
+          source = "if_many",
+          spacing = 2,
+        },
         signs = true,
         underline = true,
-        update_in_insert = false,
-        severity_sort = false,
+        update_in_insert = false, -- CRÍTICO: No actualizar durante escritura
+        severity_sort = true,
+        float = {
+          source = "always",
+          border = "rounded",
+        },
       })
 
       -- Configurar servidores LSP específicos
@@ -70,7 +78,7 @@ return {
 
       -- Agrega más servidores LSP aquí según los lenguajes que uses
       
-      -- TypeScript/JavaScript LSP
+      -- TypeScript/JavaScript LSP optimizado
       lspconfig.ts_ls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
@@ -78,24 +86,40 @@ return {
         settings = {
           typescript = {
             inlayHints = {
-              includeInlayParameterNameHints = "all",
+              includeInlayParameterNameHints = "literal",
               includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayVariableTypeHints = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayEnumMemberValueHints = true,
+              includeInlayFunctionParameterTypeHints = false,
+              includeInlayVariableTypeHints = false,
+              includeInlayPropertyDeclarationTypeHints = false,
+              includeInlayFunctionLikeReturnTypeHints = false,
+              includeInlayEnumMemberValueHints = false,
+            },
+            preferences = {
+              disableSuggestions = false,
+              quotePreference = "auto",
+              includeCompletionsForModuleExports = true,
+              includeCompletionsForImportStatements = true,
+              includeCompletionsWithSnippetText = true,
+              includeAutomaticOptionalChainCompletions = true,
             },
           },
           javascript = {
             inlayHints = {
-              includeInlayParameterNameHints = "all",
+              includeInlayParameterNameHints = "literal",
               includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayVariableTypeHints = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayEnumMemberValueHints = true,
+              includeInlayFunctionParameterTypeHints = false,
+              includeInlayVariableTypeHints = false,
+              includeInlayPropertyDeclarationTypeHints = false,
+              includeInlayFunctionLikeReturnTypeHints = false,
+              includeInlayEnumMemberValueHints = false,
+            },
+            preferences = {
+              disableSuggestions = false,
+              quotePreference = "auto",
+              includeCompletionsForModuleExports = true,
+              includeCompletionsForImportStatements = true,
+              includeCompletionsWithSnippetText = true,
+              includeAutomaticOptionalChainCompletions = true,
             },
           },
         },
@@ -117,6 +141,39 @@ return {
       lspconfig.jsonls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
+      })
+
+      -- ESLint LSP con configuración optimizada
+      lspconfig.eslint.setup({
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+          on_attach(client, bufnr)
+          -- Desactivar si no hay archivo de configuración
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            command = "EslintFixAll",
+          })
+        end,
+        settings = {
+          workingDirectory = { mode = "auto" },
+          format = { enable = true },
+          lint = { enable = true },
+          run = "onType", -- Cambiar a "onSave" para mejor rendimiento
+        },
+        -- Solo activar ESLint si hay archivo de configuración
+        root_dir = function(fname)
+          local util = require("lspconfig.util")
+          return util.root_pattern(
+            ".eslintrc",
+            ".eslintrc.js",
+            ".eslintrc.cjs",
+            ".eslintrc.yaml",
+            ".eslintrc.yml",
+            ".eslintrc.json",
+            "eslint.config.js",
+            "package.json"
+          )(fname)
+        end,
       })
     end,
   },
