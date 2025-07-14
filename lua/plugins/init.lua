@@ -543,6 +543,69 @@ require("lazy").setup({
       })
     end,
   },
+
+  -- Terminal mejorado
+  {
+    "akinsho/toggleterm.nvim",
+    version = "*",
+    config = function()
+      require("toggleterm").setup({
+        size = 20,
+        open_mapping = [[<c-\>]],
+        hide_numbers = true,
+        shade_filetypes = {},
+        shade_terminals = true,
+        shading_factor = 2,
+        start_in_insert = true,
+        insert_mappings = true,
+        terminal_mappings = true,
+        persist_size = true,
+        direction = "float", -- 'vertical' | 'horizontal' | 'tab' | 'float'
+        close_on_exit = true,
+        shell = vim.o.shell,
+        auto_scroll = true,
+        float_opts = {
+          border = "curved",
+          winblend = 0,
+          highlights = {
+            border = "Normal",
+            background = "Normal",
+          },
+        },
+      })
+
+      -- Configurar terminales específicos
+      local Terminal = require('toggleterm.terminal').Terminal
+
+      -- Terminal flotante para comandos rápidos
+      local lazygit = Terminal:new({
+        cmd = "lazygit",
+        dir = "git_dir",
+        direction = "float",
+        float_opts = {
+          border = "double",
+        },
+        on_open = function(term)
+          vim.cmd("startinsert!")
+          vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", {noremap = true, silent = true})
+        end,
+        on_close = function(term)
+          vim.cmd("startinsert!")
+        end,
+      })
+
+      -- Keymap para lazygit
+      vim.keymap.set("n", "<leader>lg", function() lazygit:toggle() end, { desc = "LazyGit" })
+
+      -- Terminal horizontal
+      local htop = Terminal:new({ cmd = "htop", direction = "horizontal" })
+      vim.keymap.set("n", "<leader>ht", function() htop:toggle() end, { desc = "Htop" })
+
+      -- Terminal específico para node
+      local node = Terminal:new({ cmd = "node", direction = "horizontal" })
+      vim.keymap.set("n", "<leader>nd", function() node:toggle() end, { desc = "Node REPL" })
+    end,
+  },
   
   -- Puedes importar configuraciones desde otros archivos
   { import = "plugins.lsp" },         -- lua/plugins/lsp.lua

@@ -91,6 +91,10 @@ NVIM_APPNAME=alfonsoHR98/nvim/ nvim
 - **[nvim-genghis](https://github.com/chrisgrieser/nvim-genghis)** - Operaciones avanzadas de archivos
 - **[dressing.nvim](https://github.com/stevearc/dressing.nvim)** - Mejores interfaces para inputs y selecciones
 
+### Terminal
+
+- **[toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim)** - Terminal mejorado con múltiples modos
+
 ### LSP y Autocompletado
 
 - **[nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)** - Configuraciones para Language Server Protocol
@@ -181,6 +185,28 @@ NVIM_APPNAME=alfonsoHR98/nvim/ nvim
 | `<leader>tb` | Toggle blame    | Activar/desactivar blame    |
 | `<leader>hd` | Diff this       | Ver diferencias             |
 | `<leader>td` | Toggle deleted  | Mostrar líneas eliminadas   |
+
+### 🖥️ Terminal
+
+| Keymap       | Acción                   | Descripción                        |
+| ------------ | ------------------------ | ---------------------------------- |
+| `<C-\>`      | Toggle terminal flotante | Abrir/cerrar terminal principal    |
+| `<leader>tt` | Terminal integrado       | Abrir terminal en buffer           |
+| `<leader>tv` | Terminal vertical        | Abrir terminal en split vertical   |
+| `<leader>th` | Terminal horizontal      | Abrir terminal en split horizontal |
+| `<leader>lg` | LazyGit                  | Abrir LazyGit (Git UI)             |
+| `<leader>ht` | Htop                     | Abrir monitor de sistema           |
+| `<leader>nd` | Node REPL                | Abrir Node.js interactivo          |
+
+#### En modo terminal:
+
+| Keymap  | Acción                  | Descripción            |
+| ------- | ----------------------- | ---------------------- |
+| `<Esc>` | Salir del modo terminal | Volver a modo normal   |
+| `<C-h>` | Ventana izquierda       | Navegar desde terminal |
+| `<C-j>` | Ventana inferior        | Navegar desde terminal |
+| `<C-k>` | Ventana superior        | Navegar desde terminal |
+| `<C-l>` | Ventana derecha         | Navegar desde terminal |
 
 ### 🪟 Navegación entre Ventanas
 

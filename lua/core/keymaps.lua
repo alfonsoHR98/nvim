@@ -46,3 +46,15 @@ keymap("n", "<C-u>", "<C-u>zz", opts)
 
 -- Explorador de archivos (si usas netrw)
 keymap("n", "<leader>pv", vim.cmd.Ex, opts)
+
+-- Terminal integrado
+keymap("n", "<leader>tt", ":terminal<CR>", opts)
+keymap("n", "<leader>tv", ":vsplit | terminal<CR>", opts)
+keymap("n", "<leader>th", ":split | terminal<CR>", opts)
+
+-- Terminal mode mappings
+keymap("t", "<Esc>", "<C-\\><C-n>", opts) -- Salir del modo terminal
+keymap("t", "<C-h>", "<C-\\><C-n><C-w>h", opts)
+keymap("t", "<C-j>", "<C-\\><C-n><C-w>j", opts)
+keymap("t", "<C-k>", "<C-\\><C-n><C-w>k", opts)
+keymap("t", "<C-l>", "<C-\\><C-n><C-w>l", opts)
