@@ -610,7 +610,7 @@ require("lazy").setup({
   -- GitHub Copilot (versión moderna)
   {
     "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
+    cmd = { "Copilot", "CopilotAuth", "CopilotDetach", "CopilotPanel", "CopilotStatus" },
     event = "InsertEnter",
     config = function()
       require("copilot").setup({
@@ -739,38 +739,29 @@ require("lazy").setup({
   -- TEMPORALMENTE DESHABILITADO: Si hay problemas, descomenta el bloque de abajo
   {
     "gelguy/wilder.nvim",
-    enabled = true, -- Cambiar a false si hay problemas
+    enabled = true, -- Reactivado con configuración más simple
     build = ":UpdateRemotePlugins",
     event = "CmdlineEnter",
     config = function()
       local wilder = require('wilder')
       
-      -- Configurar wilder con configuración más simple y estable
+      -- Configuración más simple y estable para evitar conflictos
       wilder.setup({
-        modes = {':', '/', '?'},  -- Habilitar para comandos, búsqueda hacia adelante y atrás
-        next_key = '<Tab>',
-        previous_key = '<S-Tab>',
-        accept_key = '<Down>',
-        reject_key = '<Up>',
+        modes = {':', '/', '?'}
       })
 
-      -- Configurar el pipeline sin filtros nativos problemáticos
+      -- Pipeline muy básico sin filtros problemáticos
       wilder.set_option('pipeline', {
         wilder.branch(
-          wilder.cmdline_pipeline({
-            -- Usar filtro simple en lugar del nativo que está fallando
-            fuzzy = 1,
-          }),
+          wilder.cmdline_pipeline(),
           wilder.vim_search_pipeline()
         )
       })
 
-      -- Configurar el renderizador
+      -- Renderizador básico sin elementos complejos
       wilder.set_option('renderer', wilder.renderer_mux({
-        [':'] = wilder.popupmenu_renderer({
+        [':'] = wilder.wildmenu_renderer({
           highlighter = wilder.basic_highlighter(),
-          left = {' ', wilder.popupmenu_devicons()},
-          right = {' ', wilder.popupmenu_scrollbar()},
         }),
         ['/'] = wilder.wildmenu_renderer({
           highlighter = wilder.basic_highlighter(),

@@ -106,7 +106,7 @@ NVIM_APPNAME=alfonsoHR98/nvim/ nvim
 - **[nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)** - Configuraciones para Language Server Protocol
 - **[mason.nvim](https://github.com/williamboman/mason.nvim)** - Instalador de LSP servers, DAPs, linters
 - **[nvim-cmp](https://github.com/hrsh7th/nvim-cmp)** - Motor de autocompletado
-- **[wilder.nvim](https://github.com/gelguy/wilder.nvim)** - Mejora visual del autocompletado de comandos
+- **[cmp-cmdline](https://github.com/hrsh7th/cmp-cmdline)** - Autocompletado para línea de comandos
 - **[LuaSnip](https://github.com/L3MON4D3/LuaSnip)** - Motor de snippets
 
 ### Sintaxis y Resaltado

@@ -186,7 +186,7 @@ return {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-cmdline", -- Autocompletado para línea de comandos (respaldo si wilder falla)
+      "hrsh7th/cmp-cmdline", -- Temporalmente deshabilitado para evitar conflicto con wilder.nvim
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
@@ -248,29 +248,26 @@ return {
         }),
       })
 
-      -- Configuración para autocompletado en línea de comandos como respaldo
-      -- Solo se activará si wilder.nvim está deshabilitado o falla
-      local ok, _ = pcall(require, 'wilder')
-      if not ok then
-        -- Autocompletado para búsqueda con `/` y `?`
-        cmp.setup.cmdline({ '/', '?' }, {
-          mapping = cmp.mapping.preset.cmdline(),
-          sources = {
-            { name = 'buffer' }
-          }
-        })
+      -- Configuración para autocompletado en línea de comandos DESHABILITADA
+      -- para evitar conflictos con wilder.nvim
+      -- Autocompletado para búsqueda con `/` y `?`
+      cmp.setup.cmdline({ '/', '?' }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = 'buffer' }
+        }
+      })
 
-        -- Autocompletado para comandos con `:`
-        cmp.setup.cmdline(':', {
-          mapping = cmp.mapping.preset.cmdline(),
-          sources = cmp.config.sources({
-            { name = 'path' }
-          }, {
-            { name = 'cmdline' }
-          }),
-          matching = { disallow_symbol_nonprefix_matching = false }
-        })
-      end
+      -- Autocompletado para comandos con `:`
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+          { name = 'cmdline' }
+        }),
+        matching = { disallow_symbol_nonprefix_matching = false }
+      })
     end,
   },
 
