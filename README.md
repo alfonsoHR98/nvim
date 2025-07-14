@@ -236,7 +236,7 @@ NVIM_APPNAME=alfonsoHR98/nvim/ nvim
 ### Instalados por Defecto
 
 - **lua_ls** - Lua Language Server
-- **tsserver** - TypeScript/JavaScript Language Server
+- **ts_ls** - TypeScript/JavaScript Language Server (anteriormente tsserver)
 - **cssls** - CSS Language Server
 - **html** - HTML Language Server
 - **jsonls** - JSON Language Server
@@ -249,7 +249,7 @@ Para agregar soporte para más lenguajes, edita `lua/plugins/lsp.lua` y agrega e
 ```lua
 ensure_installed = {
   "lua_ls",
-  "tsserver",    -- TypeScript/JavaScript
+  "ts_ls",       -- TypeScript/JavaScript (nuevo nombre)
   "pyright",     -- Python
   "rust_analyzer", -- Rust
   -- Más servidores...

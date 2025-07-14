@@ -71,7 +71,7 @@ return {
       -- Agrega más servidores LSP aquí según los lenguajes que uses
       
       -- TypeScript/JavaScript LSP
-      lspconfig.tsserver.setup({
+      lspconfig.ts_ls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
         filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
@@ -183,7 +183,7 @@ return {
       require("mason-lspconfig").setup({
         ensure_installed = {
           "lua_ls",        -- Lua
-          "tsserver",      -- TypeScript/JavaScript
+          "ts_ls",         -- TypeScript/JavaScript (antes era tsserver)
           "cssls",         -- CSS
           "html",          -- HTML
           "jsonls",        -- JSON
