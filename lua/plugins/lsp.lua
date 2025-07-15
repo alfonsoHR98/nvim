@@ -298,4 +298,54 @@ return {
       })
     end,
   },
+
+  -- null-ls para formateo y linting
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      local null_ls = require("null-ls")
+
+      -- Define las fuentes directamente como una tabla válida
+      local sources = {
+        null_ls.builtins.formatting.prettier,
+        null_ls.builtins.diagnostics.eslint,
+        null_ls.builtins.formatting.stylua,
+      }
+
+      -- Configura null-ls con las fuentes
+      null_ls.setup({
+        sources = sources,
+      })
+
+      -- Configurar fuentes de formato y linting
+      null_ls.setup({
+        sources = {
+          null_ls.builtins.formatting.prettier, -- Formateador para JS, TS, HTML, CSS, etc.
+          null_ls.builtins.formatting.stylua,  -- Formateador para Lua
+          null_ls.builtins.diagnostics.eslint, -- Linter para JS/TS
+        },
+        on_attach = function(client, bufnr)
+          if client.supports_method("textDocument/formatting") then
+            -- Autoformato al guardar
+            vim.api.nvim_create_autocmd("BufWritePre", {
+              buffer = bufnr,
+              callback = function()
+                vim.lsp.buf.format({ bufnr = bufnr })
+              end,
+            })
+          end
+
+          -- Mapeo para formatear manualmente
+          vim.api.nvim_buf_set_keymap(
+            bufnr,
+            "n",
+            "<leader>f",
+            "<cmd>lua vim.lsp.buf.format({ async = true })<CR>",
+            { noremap = true, silent = true }
+          )
+        end,
+      })
+    end,
+  },
 }
