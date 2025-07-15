@@ -101,11 +101,24 @@ require("lazy").setup({
     dependencies = { 
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-fzf-native.nvim", -- Mejorar performance
+      "nvim-telescope/telescope-file-browser.nvim", -- Navegador de archivos
     },
     config = function()
       local telescope = require("telescope")
       telescope.setup({
         defaults = {
+          file_ignore_patterns = {}, -- Puedes personalizar patrones aquí
+          vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            "--hidden", -- Incluye archivos ocultos
+            "--no-ignore", -- Incluye archivos ignorados por .gitignore
+          },
           mappings = {
             i = {
               ["<C-k>"] = "move_selection_previous",
@@ -125,6 +138,7 @@ require("lazy").setup({
       
       -- Cargar extensiones
       pcall(telescope.load_extension, 'fzf')
+      pcall(telescope.load_extension, 'file_browser')
       
       -- Keymaps para telescope
       vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>", { desc = "Find files" })
@@ -137,6 +151,14 @@ require("lazy").setup({
       vim.keymap.set("n", "<leader>gc", ":Telescope git_commits<CR>", { desc = "Git commits" })
       vim.keymap.set("n", "<leader>gb", ":Telescope git_branches<CR>", { desc = "Git branches" })
       vim.keymap.set("n", "<leader>gt", ":Telescope git_status<CR>", { desc = "Git status" })
+      
+      -- Mapeo para abrir el explorador de archivos ignorados
+      vim.api.nvim_set_keymap(
+        "n",
+        "<leader>fb",
+        ":Telescope file_browser hidden=true no_ignore=true<CR>",
+        { noremap = true, silent = true }
+      )
     end,
   },
 
