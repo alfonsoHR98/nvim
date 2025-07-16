@@ -99,7 +99,41 @@ NVIM_APPNAME=alfonsoHR98/nvim/ nvim
 
 - **[copilot.lua](https://github.com/zbirenbaum/copilot.lua)** - GitHub Copilot oficial para Neovim
 - **[copilot-cmp](https://github.com/zbirenbaum/copilot-cmp)** - Integración de Copilot con nvim-cmp
-- **[CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim)** - Chat con IA para explicar y generar código
+- **[CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim)** - Chat con IA para explicar y generar código usando GitHub Copilot
+
+### 🤖 GitHub Copilot y CopilotChat.nvim (AI Assistant)
+
+#### Sugerencias de Código (Insert Mode)
+
+| Keymap     | Acción                 | Descripción                         |
+| ---------- | ---------------------- | ----------------------------------- |
+| `Alt + l`  | Aceptar sugerencia     | Acepta sugerencia de Copilot        |
+| `Alt + ]`  | Siguiente sugerencia   | Navega a la siguiente sugerencia    |
+| `Alt + [`  | Anterior sugerencia    | Navega a la anterior sugerencia     |
+| `Ctrl + ]` | Descartar sugerencia   | Descarta la sugerencia actual       |
+| `Tab`      | Navegar autocompletado | Navega en el menú de autocompletado |
+
+#### CopilotChat.nvim (Normal y Visual Mode)
+
+| Keymap       | Acción              | Descripción                    |
+| ------------ | ------------------- | ------------------------------ |
+| `<leader>cc` | Abrir chat          | Abre chat con Copilot          |
+| `<leader>cx` | Explicar código     | Explica el código seleccionado |
+| `<leader>cr` | Refactorizar código | Refactoriza el código          |
+| `<leader>co` | Optimizar código    | Optimiza el código             |
+| `<leader>cd` | Documentar código   | Genera documentación           |
+| `<leader>ct` | Generar tests       | Genera pruebas unitarias       |
+| `<leader>cb` | Encontrar bugs      | Identifica problemas en código |
+| `<leader>cm` | Mensaje de commit   | Genera mensaje para commit     |
+
+#### Copilot Panel y Control
+
+| Keymap             | Acción             | Descripción                     |
+| ------------------ | ------------------ | ------------------------------- |
+| `<M-CR>`           | Panel Copilot      | Abre panel de sugerencias       |
+| `:Copilot status`  | Status Copilot     | Muestra estado de conexión      |
+| `:Copilot enable`  | Activar Copilot    | Activa Copilot                  |
+| `:Copilot disable` | Desactivar Copilot | Desactiva Copilot temporalmente |
 
 ### LSP y Autocompletado
 
@@ -523,43 +557,14 @@ src/
 ---
 
 _Esta configuración está optimizada para un flujo de trabajo moderno de desarrollo con Neovim._
+| `S` | Prompt de sistema | Editar prompt del sistema |
+| `?` | Ayuda | Muestra la ayuda del chat |
 
-### 🤖 GitHub Copilot (AI Assistant)
+#### Copilot Panel y Control
 
-#### Sugerencias de Código (Insert Mode)
-
-| Keymap     | Acción                 | Descripción                         |
-| ---------- | ---------------------- | ----------------------------------- |
-| `Alt + l`  | Aceptar sugerencia     | Acepta sugerencia de Copilot        |
-| `Alt + ]`  | Siguiente sugerencia   | Navega a la siguiente sugerencia    |
-| `Alt + [`  | Anterior sugerencia    | Navega a la anterior sugerencia     |
-| `Ctrl + ]` | Descartar sugerencia   | Descarta la sugerencia actual       |
-| `Tab`      | Navegar autocompletado | Navega en el menú de autocompletado |
-
-#### CopilotChat (Normal Mode)
-
-| Keymap       | Acción                 | Descripción              |
-| ------------ | ---------------------- | ------------------------ |
-| `<leader>cc` | Abrir chat             | Abre chat con Copilot    |
-| `<leader>ct` | Toggle chat            | Activa/desactiva chat    |
-| `<leader>cm` | Generar commit message | Genera mensaje de commit |
-
-#### CopilotChat (Visual Mode - selecciona código primero)
-
-| Keymap        | Acción           | Descripción                     |
-| ------------- | ---------------- | ------------------------------- |
-| `<leader>cx`  | Explicar código  | Explica el código seleccionado  |
-| `<leader>cr`  | Revisar código   | Revisa el código seleccionado   |
-| `<leader>cf`  | Arreglar código  | Sugiere arreglos para el código |
-| `<leader>co`  | Optimizar código | Sugiere optimizaciones          |
-| `<leader>cd`  | Agregar docs     | Genera documentación            |
-| `<leader>cts` | Generar tests    | Genera tests para el código     |
-
-#### Comandos de Control
-
-| Keymap       | Acción             | Descripción                     |
-| ------------ | ------------------ | ------------------------------- |
-| `<leader>cp` | Panel Copilot      | Abre panel de sugerencias       |
-| `<leader>cs` | Status Copilot     | Muestra estado de conexión      |
-| `<leader>ce` | Activar Copilot    | Activa Copilot                  |
-| `<leader>cD` | Desactivar Copilot | Desactiva Copilot temporalmente |
+| Keymap             | Acción             | Descripción                     |
+| ------------------ | ------------------ | ------------------------------- |
+| `<M-CR>`           | Panel Copilot      | Abre panel de sugerencias       |
+| `:Copilot status`  | Status Copilot     | Muestra estado de conexión      |
+| `:Copilot enable`  | Activar Copilot    | Activa Copilot                  |
+| `:Copilot disable` | Desactivar Copilot | Desactiva Copilot temporalmente |
